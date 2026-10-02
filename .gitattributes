@@ -1,0 +1,2 @@
+# Arquivo: .gitattributes | Função: normalizar fins de linha no repositório.
+* text=auto eol=lf

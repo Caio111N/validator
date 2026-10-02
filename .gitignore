@@ -1,0 +1,16 @@
+# Arquivo: .gitignore | Função: ignorar dependências, arquivos locais e logs.
+node_modules/
+.env
+.env.*
+coverage/
+logs/
+.DS_Store
+Thumbs.db
+.vscode/
+*.log
+npm-debug.log*
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
