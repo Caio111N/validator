@@ -1,0 +1,19 @@
+{
+  "name": "validator",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Validador local de CPF e CNPJ com consulta empresarial pela BrasilAPI",
+  "scripts": {
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "license": "MIT",
+  "keywords": [
+    "cpf",
+    "cnpj",
+    "validador",
+    "brasilapi"
+  ]
+}

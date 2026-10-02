@@ -1,0 +1,199 @@
+<!-- Arquivo: index.html | Função: estrutura acessível da interface do validador. -->
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f4f7f5" />
+    <title>Validator | Validador de CPF e CNPJ</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="validator.js" defer></script>
+    <script src="cnpjLookup.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="page-header">
+        <p class="brand-mark" aria-hidden="true">V.</p>
+        <h1>Validator</h1>
+        <p class="subtitle">Valide CPF e CNPJ na hora</p>
+      </header>
+
+      <section class="validator-panel" aria-labelledby="field-label">
+        <form id="validator-form" novalidate>
+          <div class="field-heading">
+            <label id="field-label" for="document-input">CPF ou CNPJ</label>
+            <span
+              id="document-type"
+              class="type-badge"
+              aria-label="Tipo detectado"
+            ></span>
+          </div>
+          <div class="input-wrap" data-state="neutral">
+            <input
+              id="document-input"
+              name="document"
+              type="text"
+              inputmode="text"
+              autocomplete="off"
+              autocapitalize="characters"
+              spellcheck="false"
+              placeholder="000.000.000-00"
+              aria-describedby="result-message"
+              maxlength="18"
+            />
+          </div>
+
+          <div
+            id="result"
+            class="result"
+            data-state="neutral"
+            aria-live="polite"
+            aria-atomic="true"
+          >
+            <span
+              id="result-icon"
+              class="result-icon"
+              aria-hidden="true"
+            ></span>
+            <div>
+              <p id="result-title" class="result-title">Aguardando documento</p>
+              <p id="result-message" class="result-message">
+                Digite um CPF ou CNPJ para começar.
+              </p>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button
+              id="clear-button"
+              class="button button-secondary"
+              type="button"
+            >
+              Limpar
+            </button>
+            <button
+              id="copy-button"
+              class="button button-primary"
+              type="button"
+              disabled
+            >
+              <svg aria-hidden="true" viewBox="0 0 20 20" focusable="false">
+                <path
+                  d="M7 6V4.8A1.8 1.8 0 0 1 8.8 3h6.4A1.8 1.8 0 0 1 17 4.8v6.4a1.8 1.8 0 0 1-1.8 1.8H14M5 7h6.2A1.8 1.8 0 0 1 13 8.8v6.4a1.8 1.8 0 0 1-1.8 1.8H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2Z"
+                />
+              </svg>
+              Copiar
+            </button>
+          </div>
+          <p id="copy-message" class="copy-message" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <section id="cpf-official-lookup" class="official-link-panel" hidden>
+        <a
+          href="https://servicos.receita.fazenda.gov.br/Servicos/CPF/ConsultaSituacao/ConsultaPublica.asp"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Consultar situação cadastral na Receita Federal</a
+        >
+        <p>
+          Para consultar, informe o CPF e a data de nascimento do próprio
+          titular.
+        </p>
+      </section>
+
+      <section
+        id="cnpj-lookup-card"
+        class="lookup-card"
+        aria-labelledby="cnpj-lookup-title"
+        hidden
+      >
+        <div class="lookup-heading">
+          <div>
+            <h2 id="cnpj-lookup-title">Consulta de CNPJ</h2>
+            <p>Os dados da empresa só são solicitados quando você clicar.</p>
+          </div>
+          <span class="lookup-mark" aria-hidden="true">BR</span>
+        </div>
+        <div class="lookup-actions">
+          <button
+            id="cnpj-lookup-button"
+            class="button button-primary"
+            type="button"
+            disabled
+          >
+            <span id="cnpj-lookup-label">Consultar CNPJ</span>
+            <span
+              id="cnpj-lookup-spinner"
+              class="spinner"
+              aria-hidden="true"
+              hidden
+            ></span>
+          </button>
+          <button
+            id="cnpj-new-lookup-button"
+            class="button button-secondary"
+            type="button"
+            hidden
+          >
+            Nova consulta
+          </button>
+        </div>
+        <p
+          id="cnpj-lookup-status"
+          class="lookup-status"
+          role="status"
+          aria-live="polite"
+          hidden
+        ></p>
+        <div
+          id="cnpj-company-data"
+          class="company-data"
+          aria-live="polite"
+          aria-atomic="true"
+          hidden
+        >
+          <div class="company-heading">
+            <div>
+              <h3 id="company-legal-name"></h3>
+              <p id="company-trade-name" class="trade-name" hidden></p>
+            </div>
+            <span id="company-status-badge" class="status-badge"></span>
+          </div>
+          <dl class="company-grid">
+            <div>
+              <dt>Início da atividade</dt>
+              <dd id="company-start-date"></dd>
+            </div>
+            <div>
+              <dt>Atividade principal (CNAE)</dt>
+              <dd id="company-activity"></dd>
+            </div>
+            <div>
+              <dt>Natureza jurídica</dt>
+              <dd id="company-legal-nature"></dd>
+            </div>
+            <div>
+              <dt>Porte</dt>
+              <dd id="company-size"></dd>
+            </div>
+            <div>
+              <dt>Cidade/UF</dt>
+              <dd id="company-location"></dd>
+            </div>
+          </dl>
+          <p id="mei-notice" class="mei-notice" hidden>
+            Em MEI, a razão social pode conter dados pessoais do titular.
+          </p>
+          <p class="lookup-source">Dados da Receita Federal via BrasilAPI</p>
+        </div>
+      </section>
+
+      <footer class="page-footer">
+        CPF é validado só no seu navegador. A consulta de CNPJ envia apenas o
+        número do CNPJ à BrasilAPI quando você clicar em Consultar.
+      </footer>
+    </main>
+  </body>
+</html>
